@@ -1,5 +1,4 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,8 +8,27 @@
 <meta property="og:title" content="Shopno Music School">
 <meta property="og:description" content="A home-based, family-owned music school in Stoney Creek, Hamilton - blending Eastern and Western music for all ages.">
 <meta property="og:type" content="website">
+<!-- NOTE: when deployed, replace og:image with the absolute URL, e.g. https://yourdomain.com/assets/logo.png -->
 <meta property="og:image" content="assets/logo.png">
+<meta name="theme-color" content="#FAF7F0">
 <link rel="icon" type="image/png" href="assets/logo-footer.png">
+<!-- Structured data: helps Google show the school in local search results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicSchool",
+  "name": "Shopno Music School",
+  "description": "A home-based, family-owned music school in Stoney Creek (Winona), Hamilton, ON. Bengali and Western voice, harmonium, piano, and guitar lessons for all ages. First class free.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Stoney Creek, Hamilton",
+    "addressRegion": "ON",
+    "addressCountry": "CA"
+  },
+  "email": "bbose.work@gmail.com",
+  "sameAs": ["https://www.facebook.com/groups/800635622097716/"]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+Bengali:wght@500;600&display=swap" rel="stylesheet">
@@ -44,6 +62,14 @@ const SITE_CONFIG = {
       { src: "assets/gallery/photo-5.jpg", alt: "Teachers, students, and families together at a Shopno event" }
     ]
   }
+
+  /* OPTIONAL TESTIMONIALS DATA - uncomment (and add a comma above) when real quotes are collected
+  ,
+  testimonials: [
+    { quote: "Testimonial text goes here.", author: "Parent of a student" },
+    { quote: "Another testimonial goes here.", author: "Adult student" }
+  ]
+  */
 };
 </script>
 
@@ -87,14 +113,24 @@ body{
   overflow-x:hidden;
 }
 img{ max-width:100%; display:block; }
+::selection{ background:var(--vermilion); color:#fff; }
 a{ color:var(--vermilion); text-decoration-thickness:1px; text-underline-offset:3px; }
 a:hover{ color:var(--vermilion-deep); }
 :focus-visible{ outline:2px solid var(--vermilion); outline-offset:3px; border-radius:var(--radius); }
 
 .wrap{ max-width:var(--max); margin-inline:auto; padding-inline:var(--pad); }
 
+/* accessibility: skip link (visible only when focused via keyboard) */
+.skip-link{
+  position:absolute; left:1rem; top:-100%; z-index:200;
+  background:var(--ink); color:var(--ivory); padding:.7rem 1.2rem;
+  border-radius:var(--radius); text-decoration:none; font-weight:600; font-size:.95rem;
+  transition:top .2s ease;
+}
+.skip-link:focus{ top:1rem; color:var(--ivory); }
+
 /* ---------- type scale ---------- */
-h1,h2,h3{ font-family:var(--font-display); font-weight:400; line-height:1.12; letter-spacing:-0.01em; overflow-wrap:break-word; }
+h1,h2,h3{ font-family:var(--font-display); font-weight:400; line-height:1.12; letter-spacing:-0.01em; overflow-wrap:break-word; text-wrap:balance; }
 h1{ font-size:clamp(2.35rem, 7vw, 4.5rem); }
 h2{ font-size:clamp(1.8rem, 4.5vw, 2.75rem); margin-bottom:.5rem; }
 h3{ font-size:1.35rem; line-height:1.3; }
@@ -181,68 +217,36 @@ h3{ font-size:1.35rem; line-height:1.3; }
    WATERMARK (BENGALI "SWAPNA") - CUSTOMIZATION CONTROLS
    Modify the values below to easily adjust the background text parameters.
    ============================================================================== */
-/*.hero-bn{*/
-/*  position:absolute; z-index:0; user-select:none; pointer-events:none;*/
-/*  font-family:var(--font-bengali); font-weight:600; line-height:1;*/
-/*  color:transparent; !* Keeps the inside transparent, leaving only the stroke *!*/
-
-/*  !* 1. POSITION: Adjust the 'right' and 'top' percentages to move it *!*/
-/*  right: -2%; */
-/*  top: 50%; */
-/*  transform: translateY(-50%);*/
-
-/*  !* 2. SIZE: clamp(Minimum size on mobile, Fluid viewport size, Maximum size on desktop) */
-/*     (This is currently 20% smaller than previous version) *!*/
-/*  font-size: clamp(14.4rem, 36vw, 30.4rem); */
-
-/*  !* 3. COLOR: Change the RGBA values to adjust the outline color and opacity *!*/
-/*  -webkit-text-stroke: 2px rgba(189, 180, 166, 0.30); */
-
-/*  !* 4. OUTER SHELL FADE: */
-/*     - The first percentage (40%) is where solid text ends.*/
-/*     - The second percentage (85%) is where it completely fades to transparent. */
-/*     Adjust these to change the harshness of the edge blending. *!*/
-/*  -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 85%);*/
-/*  mask-image: radial-gradient(closest-side, #000 40%, transparent 85%);*/
-/*}*/
-
-/*@media (max-width: 720px){*/
-/*  .hero-bn{*/
-/*    !* Mobile specific adjustments *!*/
-/*    right: -5%;*/
-/*    font-size: clamp(11.2rem, 48vw, 20rem); !* 20% smaller on mobile *!*/
-/*    -webkit-text-stroke: 1.5px rgba(192, 57, 43, 0.15); !* Slightly reddish tone for mobile *!*/
-/*  }*/
-/*}*/
 .hero-bn {
   position: absolute; z-index: 0; user-select: none; pointer-events: none;
   font-family: var(--font-bengali); font-weight: 600; line-height: 1;
   color: transparent;
 
-  /* 1. POSITION: Brought inward from the right and positioned slightly higher */
-  right: 1%;
+  /* 1. POSITION: kept safely inward from the right edge */
+  right: 4%;
   top: 50%;
   transform: translateY(-50%);
 
-  /* 2. SIZE: Scaled down to match your reference image */
+  /* 2. SIZE: clamp(min on small, fluid, max on large) */
   font-size: clamp(10rem, 31vw, 24rem);
 
-  /* 3. COLOR: Changed to a faded vermilion (red) stroke */
-  -webkit-text-stroke: 1.5px rgba(192, 57, 43, 0.25);
+  /* 3. COLOR (LARGE SCREENS): antique-gold stroke */
+  -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.35);
 
-  /* 4. OUTER SHELL FADE: Softened the radial gradient for a smoother, ghost-like fade */
+  /* 4. OUTER SHELL FADE: radial mask — first % is where solid ends, second is full fade */
   -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);
   mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);
 }
 
 @media (max-width: 720px) {
   .hero-bn {
-    /* Mobile specific adjustments to keep it centered and readable */
+    /* Mobile: centered behind the text */
     right: 50%;
     transform: translate(50%, -50%);
     top: 46%;
     font-size: clamp(12rem, 50vw, 20rem);
-    -webkit-text-stroke: 1.5px rgba(189, 180, 166, 0.30);;
+    /* COLOR (SMALL SCREENS): faded vermilion, as per current design */
+    -webkit-text-stroke: 1.5px rgba(192, 57, 43, 0.25);
   }
 }
 /* ============================================================================== */
@@ -347,11 +351,15 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   position:absolute; width: 65%; height: 90%;
   border-radius:12px; overflow:hidden;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease;
-  opacity: 0; z-index: 1; 
+  opacity: 0; z-index: 1;
   transform: translateX(0) scale(0.7) translateZ(-100px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  /* layered shadow = softer, more premium depth than a single hard shadow */
+  box-shadow: 0 2px 6px rgba(31,27,22,.12), 0 18px 40px -12px rgba(31,27,22,.35);
   filter: brightness(0.5);
   background: #111; /* Fallback for transparency */
+}
+.gallery-slide.active{
+  box-shadow: 0 4px 10px rgba(31,27,22,.14), 0 30px 60px -18px rgba(31,27,22,.45);
 }
 /*@media (max-width: 768px) {*/
 /*  .gallery-slide { width: 85%; }*/
@@ -428,12 +436,25 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   max-width:920px; margin:1.5rem auto 0; display:flex; align-items:center;
   justify-content:space-between; gap:1rem; padding-inline:1rem;
 }
-.gallery-dots{ display:flex; gap:.6rem; flex-wrap:wrap; }
+.gallery-dots{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; }
 .gallery-dot{
-  width:.65rem; height:.65rem; border-radius:50%; border:0; cursor:pointer; padding:0;
-  background:var(--line); transition:background .2s, transform .2s;
+  width:.65rem; height:.65rem; border-radius:999px; border:0; cursor:pointer; padding:0;
+  background:var(--line); transition:background .25s, width .35s ease;
+  position:relative; overflow:hidden;
 }
-.gallery-dot.active{ background:var(--vermilion); transform:scale(1.3); }
+/* active dot stretches into a pill; the ::after bar fills it in sync with autoplay */
+.gallery-dot.active{ width:2rem; background:var(--line); }
+.gallery-dot.active::after{
+  content:""; position:absolute; inset:0; border-radius:999px;
+  background:var(--vermilion); transform-origin:left;
+  transform:scaleX(1);
+}
+.gallery-dot.active.filling::after{
+  /* --fill-ms is set from JS to match gallery.autoplayMs */
+  animation:dotFill var(--fill-ms, 6000ms) linear forwards;
+}
+@keyframes dotFill{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+@media (prefers-reduced-motion: reduce){ .gallery-dot.active.filling::after{ animation:none; } }
 .gallery-counter{ font-size:.85rem; color:var(--ink-soft); font-weight:600; letter-spacing:.06em; white-space:nowrap; }
 
 /* ---------- how lessons work ---------- */
@@ -508,6 +529,8 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 </style>
 </head>
 <body>
+
+<a class="skip-link" href="#top">Skip to main content</a>
 
 <header class="site-header">
   <div class="wrap nav">
@@ -654,6 +677,18 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     </div>
   </section>
 
+  <!-- ============ OPTIONAL: TESTIMONIALS (uncomment when quotes are collected) ============
+  <section id="testimonials" class="section-alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Testimonials</span>
+        <h2>What our families say</h2>
+      </div>
+      <div class="testimonial-grid reveal" id="testimonialGrid"></div>
+    </div>
+  </section>
+  ======================================================================================= -->
+
   <!-- ================ SCHEDULE & TUITION ================ -->
   <section id="lessons" class="section-alt">
     <div class="wrap">
@@ -788,6 +823,26 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   /* ---------- footer year ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  /* OPTIONAL TESTIMONIALS RENDERER - uncomment together with the HTML section,
+     the CSS block, and the testimonials data in SITE_CONFIG
+  const tGrid = document.getElementById("testimonialGrid");
+  if (tGrid && cfg.testimonials && cfg.testimonials.length){
+    cfg.testimonials.forEach(t => {
+      const card = document.createElement("figure");
+      card.className = "testimonial-card";
+      const q = document.createElement("blockquote");
+      const p = document.createElement("p");
+      p.textContent = "“" + t.quote + "”";
+      q.appendChild(p);
+      const cap = document.createElement("figcaption");
+      cap.className = "author";
+      cap.textContent = t.author || "";
+      card.appendChild(q); card.appendChild(cap);
+      tGrid.appendChild(card);
+    });
+  }
+  */
+
   /* ============================================================
      GALLERY SLIDESHOW
      ============================================================ */
@@ -821,13 +876,24 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       // Blurred background layer to prevent cropping issues on any aspect ratio
       const bg = document.createElement("img");
       bg.className = "bg"; bg.src = img.src; bg.alt = ""; bg.loading = i === 0 ? "eager" : "lazy";
+      bg.decoding = "async";
       bg.setAttribute("aria-hidden", "true");
       slide.appendChild(bg);
 
       // Main image container
-      const fg = document.createElement("img");     
+      const fg = document.createElement("img");
       fg.className = "fg"; fg.src = img.src; fg.alt = img.alt || ""; fg.loading = i === 0 ? "eager" : "lazy";
+      fg.decoding = "async";
       slide.appendChild(fg);
+
+      /* OPTIONAL CAPTIONS - uncomment when caption data is added in SITE_CONFIG
+      if (img.caption) {
+        const cap = document.createElement("div");
+        cap.className = "gallery-caption";
+        cap.textContent = img.caption;
+        slide.appendChild(cap);
+      }
+      */
 
       track.appendChild(slide);
 
@@ -842,43 +908,48 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     const slides = track.children;
     const dots = dotsWrap.children;
 
+    function roleOf(slide){
+      if (slide.classList.contains("active")) return "active";
+      if (slide.classList.contains("prev"))   return "prev";
+      if (slide.classList.contains("next"))   return "next";
+      return "hidden";
+    }
+
     function goTo(i){
-      let prevCurrent = current;
       current = (i + images.length) % images.length;
-      let prevIdx = (current - 1 + images.length) % images.length;
-      let nextIdx = (current + 1) % images.length;
+      const prevIdx = (current - 1 + images.length) % images.length;
+      const nextIdx = (current + 1) % images.length;
 
       for (let k = 0; k < images.length; k++){
-        let slide = slides[k];
-        
-        let wasPrev = slide.classList.contains("prev");
-        let wasNext = slide.classList.contains("next");
-        let isNowPrev = (k === prevIdx);
-        let isNowNext = (k === nextIdx);
+        const slide = slides[k];
+        const oldRole = roleOf(slide);
+        let newRole = "hidden";
+        if (k === current) newRole = "active";
+        else if (k === prevIdx && images.length > 1) newRole = "prev";
+        else if (k === nextIdx && images.length > 1) newRole = "next";
 
-        if ((wasPrev && isNowNext) || (wasNext && isNowPrev)) {
-            slide.style.transition = "none";
+        /* Keep the motion speed consistent for every slide, including wrap-around:
+           - prev<->next swap: jump instantly (would otherwise fly across the stage)
+           - entering/leaving the hidden state: fade in place, don't animate transform
+             (this was the cause of the "last slide feels fast" glitch)
+           - all other role changes: full smooth transition from the stylesheet   */
+        if ((oldRole === "prev" && newRole === "next") || (oldRole === "next" && newRole === "prev")) {
+          slide.style.transition = "none";
+        } else if (oldRole === "hidden" || newRole === "hidden") {
+          slide.style.transition = "opacity .6s ease, filter .6s ease";
         } else {
-            slide.style.transition = ""; 
-        }
-        
-        void slide.offsetWidth; // Force a browser reflow
-
-        // Reset classes
-        slide.className = "gallery-slide";
-        
-        // Re-assign floating class states
-        if (k === current) {
-          slide.classList.add("active");
-        } else if (k === prevIdx && images.length > 1) {
-          slide.classList.add("prev");
-        } else if (k === nextIdx && images.length > 1) {
-          slide.classList.add("next");
+          slide.style.transition = "";
         }
 
-        // Update Dots
-        dots[k].classList.toggle("active", k === current);
-        dots[k].setAttribute("aria-selected", k === current ? "true" : "false");
+        void slide.offsetWidth; // Force a browser reflow so the transition override applies
+
+        slide.className = "gallery-slide" + (newRole === "hidden" ? "" : " " + newRole);
+
+        // Update dots (progress fill restarts only on the newly active dot)
+        const isActive = (k === current);
+        dots[k].classList.toggle("active", isActive);
+        dots[k].classList.remove("filling");
+        dots[k].setAttribute("aria-selected", isActive ? "true" : "false");
       }
 
       counter.textContent = (current + 1) + " / " + images.length;
@@ -910,11 +981,25 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       startX = null;
     }, { passive: true });
 
+    /* progress fill on the active dot, synced to the autoplay delay */
+    function fillDot(){
+      const d = dots[current];
+      if (!d) return;
+      d.classList.remove("filling");
+      void d.offsetWidth; // restart the CSS animation from zero
+      d.style.setProperty("--fill-ms", g.autoplayMs + "ms");
+      d.classList.add("filling");
+    }
     function startAutoplay(){
       if (!g.autoplayMs || g.autoplayMs <= 0 || reduceMotion || images.length < 2) return;
-      timer = setInterval(() => goTo(current + 1), g.autoplayMs);
+      if (timer) return; // never stack intervals
+      fillDot();
+      timer = setInterval(() => { goTo(current + 1); fillDot(); }, g.autoplayMs);
     }
-    function stopAutoplay(){ if (timer){ clearInterval(timer); timer = null; } }
+    function stopAutoplay(){
+      if (timer){ clearInterval(timer); timer = null; }
+      if (dots[current]) dots[current].classList.remove("filling");
+    }
     function restartAutoplay(){ stopAutoplay(); startAutoplay(); }
     frame.addEventListener("mouseenter", stopAutoplay);
     frame.addEventListener("mouseleave", startAutoplay);
