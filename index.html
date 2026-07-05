@@ -40,7 +40,7 @@
 const SITE_CONFIG = {
 
   logo: "assets/logo.png",
-  footerLogo: "assets/logo-footer.png",
+  footerLogo: "assets/logo-footer.png", // Isolated logo for the footer
 
   links: {
     registrationForm: "https://forms.office.com/r/ssNXz9LFyG",
@@ -51,24 +51,29 @@ const SITE_CONFIG = {
 
   gallery: {
     maxImages: 10,
+
+    /* FRAME SHAPE
+       "auto"  = the frame adapts to each photo's own proportions (recommended:
+                 landscape photos get a wide frame, portrait photos a tall one,
+                 so the image always fills the stage - no manual mobile override needed)
+       or a fixed value like "16 / 9" or "4 / 3" for a constant frame            */
     aspectRatio: "auto",
+
+    /* Safety clamps for "auto" mode (frame width ÷ height).
+       min stops very tall portrait photos from stretching the page;
+       max stops panoramas from becoming a thin strip.                            */
     autoRatioLimits: { min: 0.8, max: 2.1 },
-    autoplayMs: 6000, 
-     images: [
+
+    autoplayMs: 6000,       // 6 seconds delay
+
+    images: [
       { src: "assets/gallery/photo-1.jpg", alt: "Classical dance performance at a Shopno Music School recital" /*, caption: "Beautiful classical performance by our students"*/ },
-      { src: "assets/gallery/photo-1.jpg", alt: "Classical dance performance at a Shopno Music School recital" },
       { src: "assets/gallery/photo-2.jpg", alt: "Young students of The Octaves band on stage at a recital" /*, caption: "The Octaves performing live on stage"*/ },
-      { src: "assets/gallery/photo-2.jpg", alt: "Young students of The Octaves band on stage at a recital" },
       { src: "assets/gallery/photo-3.jpg", alt: "Award presentation moment on the Shopno recital stage" /*, caption: "Annual award distributions and recognitions"*/ },
-      { src: "assets/gallery/photo-3.jpg", alt: "Award presentation moment on the Shopno recital stage" },
-       { src: "assets/gallery/photo-4.jpg", alt: "Guest singer, Angshuman is performing" },
-       { src: "assets/gallery/photo-4.jpg", alt: "Guest singer, Angshuman is performing" },
-       { src: "assets/gallery/photo-5.jpg", alt: "Teachers, students, and families together at a Shopno event" }
-       { src: "assets/gallery/photo-5.jpg", alt: "Teachers, students, and families together at a Shopno event" }
-     ]
-     ]
-   }
-   }
+      { src: "assets/gallery/photo-4.jpg", alt: "Guest singer, Angshuman is performing" },
+      { src: "assets/gallery/photo-5.jpg", alt: "Teachers, students, and families together at a Shopno event" }
+    ]
+  }
 
   /* OPTIONAL TESTIMONIALS DATA - uncomment (and add a comma above) when real quotes are collected
   ,
@@ -77,6 +82,7 @@ const SITE_CONFIG = {
     { quote: "Another testimonial goes here.", author: "Adult student" }
   ]
   */
+};
 </script>
 
 <style>
@@ -126,13 +132,7 @@ a:hover{ color:var(--vermilion-deep); }
 
 .wrap{ max-width:var(--max); margin-inline:auto; padding-inline:var(--pad); }
 
-/* ---------- progress bar ---------- */
-.progress-bar {
-  position: fixed; top: 0; left: 0; height: 3px; background: var(--vermilion);
-  z-index: 10000; width: 0%; transform-origin: left; transition: width 0.1s ease-out;
-}
-
-/* accessibility: skip link */
+/* accessibility: skip link (visible only when focused via keyboard) */
 .skip-link{
   position:absolute; left:1rem; top:-100%; z-index:200;
   background:var(--ink); color:var(--ivory); padding:.7rem 1.2rem;
@@ -150,9 +150,6 @@ h3{ font-size:1.35rem; line-height:1.3; }
   font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
   color:var(--vermilion); margin-bottom:1rem; display:block;
 }
-.eyebrow .num {
-  color: var(--ink-soft); opacity: 0.6; margin-right: 0.6rem; letter-spacing: 0.05em;
-}
 .lede{ color:var(--ink-soft); max-width:38em; font-size:1.125rem; }
 .bn{ font-family:var(--font-bengali); }
 
@@ -166,30 +163,30 @@ h3{ font-size:1.35rem; line-height:1.3; }
 }
 .nav{
   display:flex; align-items:center; justify-content:space-between;
-  height:var(--header-h); gap:2rem; 
+  height:var(--header-h); gap:2rem; /* Hard bumper to prevent overlapping */
 }
 .brand{
   font-family:var(--font-display); font-size:clamp(1.02rem, 3.5vw, 1.25rem); color:var(--ink);
   text-decoration:none; display:flex; align-items:center; gap:.65rem; white-space:nowrap; 
-  flex-shrink: 0; 
+  flex-shrink: 0; /* Prevents logo text from wrapping/squishing */
 }
 .brand img{ height:3.2rem; width:auto; flex-shrink:0; }
-.nav-links{ display:flex; gap:1.4rem; list-style:none; align-items:center; flex-shrink:0; }
+.nav-links{ display:flex; gap:1.6rem; list-style:none; align-items:center; flex-shrink:0; }
 .nav-links a{
-  color:var(--ink); text-decoration:none; font-size:.92rem; font-weight:500;
+  color:var(--ink); text-decoration:none; font-size:.98rem; font-weight:500;
   border-bottom:2px solid transparent; padding-block:.25rem; transition:border-color .2s, color .2s;
-  white-space:nowrap; 
+  white-space:nowrap; /* Prevents text splitting */
 }
 .nav-links a:hover{ color:var(--vermilion); border-bottom-color:var(--vermilion); }
 
 /* Upgraded CTA Button */
 .nav-cta{
   background:var(--vermilion); color:#fff !important; 
-  padding:.65rem 1.2rem !important; font-weight:600 !important;
+  padding:.7rem 1.4rem !important; font-weight:600 !important;
   border-radius:var(--radius); border-bottom:none !important; 
   transition:background .2s, transform .2s ease;
   box-shadow: 0 4px 12px rgba(192, 57, 43, 0.2);
-  white-space:nowrap; 
+  white-space:nowrap; /* Fixes the box breaking bug */
 }
 .nav-cta:hover{ background:var(--vermilion-deep); transform:translateY(-1px); }
 
@@ -207,6 +204,7 @@ h3{ font-size:1.35rem; line-height:1.3; }
 .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
+/* Breakpoint safely increased to 1200px to ensure header items never crowd */
 @media (max-width: 1200px){
   .nav-toggle{ display:flex; }
   .nav-links{
@@ -226,23 +224,45 @@ h3{ font-size:1.35rem; line-height:1.3; }
 
 /* ---------- hero ---------- */
 .hero{ position:relative; overflow:hidden; padding-block:clamp(3.5rem, 9vw, 7.5rem) clamp(3.5rem, 8vw, 6rem); }
+
+/* ==============================================================================
+   WATERMARK (BENGALI "SWAPNA") - CUSTOMIZATION CONTROLS
+   Modify the values below to easily adjust the background text parameters.
+   ============================================================================== */
 .hero-bn {
   position: absolute; z-index: 0; user-select: none; pointer-events: none;
   font-family: var(--font-bengali); font-weight: 600; line-height: 1;
   color: transparent;
-  right: 4%; top: 50%; transform: translateY(-50%);
+
+  /* 1. POSITION: kept safely inward from the right edge */
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+
+  /* 2. SIZE: clamp(min on small, fluid, max on large) */
   font-size: clamp(10rem, 31vw, 24rem);
+
+  /* 3. COLOR (LARGE SCREENS): antique-gold stroke */
   -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.35);
+
+  /* 4. OUTER SHELL FADE: radial mask — first % is where solid ends, second is full fade */
   -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);
   mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);
 }
+
 @media (max-width: 720px) {
   .hero-bn {
-    right: 50%; transform: translate(50%, -50%); top: 46%;
+    /* Mobile: centered behind the text */
+    right: 50%;
+    transform: translate(50%, -50%);
+    top: 46%;
     font-size: clamp(12rem, 50vw, 20rem);
+    /* COLOR (SMALL SCREENS): faded vermilion, as per current design */
     -webkit-text-stroke: 1.5px rgba(192, 57, 43, 0.25);
   }
 }
+/* ============================================================================== */
+
 .hero-inner{ position:relative; z-index:1; max-width:44em; }
 .hero-logo{
   width:clamp(108px, 15vw, 156px); height:auto; margin-bottom:1.6rem;
@@ -327,12 +347,13 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
 }
 .team-note strong{ color:var(--ink); }
 
-/* ---------- gallery (Premium Floating Concept) ---------- */
+/* ---------- gallery (Premium Floating Concept + Dynamic Aspect Ratio) ---------- */
 .gallery-frame{
   position:relative; max-width:1100px; margin-inline:auto;
   background:transparent; border-radius:4px; overflow:hidden;
   display: flex; align-items: center; justify-content: center;
   perspective: 1200px; padding-block: 2rem;
+  /* smooth reshape between photos of different proportions (auto mode) */
   transition: aspect-ratio .6s ease;
 }
 .gallery-track{ 
@@ -346,17 +367,32 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease;
   opacity: 0; z-index: 1;
   transform: translateX(0) scale(0.7) translateZ(-100px);
+  /* layered shadow = softer, more premium depth than a single hard shadow */
   box-shadow: 0 2px 6px rgba(31,27,22,.12), 0 18px 40px -12px rgba(31,27,22,.35);
   filter: brightness(0.5);
-  background: #111; 
+  background: #111; /* Fallback for transparency */
 }
 .gallery-slide.active{
   box-shadow: 0 4px 10px rgba(31,27,22,.14), 0 30px 60px -18px rgba(31,27,22,.45);
 }
+/*@media (max-width: 768px) {*/
+/*  .gallery-slide { width: 85%; }*/
+/*}*/
 @media (max-width: 768px) {
-  .gallery-frame { padding-block: 0.5rem; }
-  .gallery-frame:not(.ratio-auto) { aspect-ratio: 1 / 1 !important; }
-  .gallery-slide { width: 94%; height: 98%; border-radius: 8px; }
+  .gallery-frame {
+    padding-block: 0.5rem;
+  }
+  /* Fixed-ratio mode only: force a square frame on phones so images look bigger.
+     In "auto" mode (class .ratio-auto) the frame already fits each photo, so no override. */
+  .gallery-frame:not(.ratio-auto) {
+    aspect-ratio: 1 / 1 !important;
+  }
+  .gallery-slide {
+    width: 94%; /* Takes up significantly more screen width */
+    height: 98%; /* Maximizes vertical height */
+    border-radius: 8px; /* Slightly softer corners for mobile UI */
+  }
+  /* Adjusts the 3D floating effect so the side images peek out cleanly without squishing the main image */
   .gallery-slide.prev { transform: translateX(-20%) scale(0.85) translateZ(-50px); }
   .gallery-slide.next { transform: translateX(20%) scale(0.85) translateZ(-50px); }
 }
@@ -375,6 +411,7 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
 }
 @media (prefers-reduced-motion: reduce){ .gallery-slide{ transition:none !important; } }
 
+/* Intelligent Image Layering: Blur background + Contain Foreground */
 .gallery-slide .bg {
   position: absolute; inset: -10%; width: 120%; height: 120%;
   object-fit: cover; filter: blur(25px) brightness(0.6); z-index: 0;
@@ -383,6 +420,18 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: contain; z-index: 1;
 }
+
+/* OPTIONAL CAPTIONS STYLING - commented out for now */
+/*
+.gallery-caption {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: #fff; padding: 2rem 1.5rem 1.5rem; text-align: center;
+  z-index: 5; font-size: 1.05rem; font-weight: 500;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.gallery-slide.active .gallery-caption { opacity: 1; }
+*/
 
 .gallery-btn{
   position:absolute; top:50%; transform:translateY(-50%); z-index:10;
@@ -411,13 +460,17 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   background:var(--line); transition:background .25s, width .35s ease;
   position:relative; overflow:hidden;
 }
+/* active dot stretches into a pill; the ::after bar fills it in sync with autoplay */
 .gallery-dot.active{ width:2rem; background:var(--line); }
 .gallery-dot.active::after{
   content:""; position:absolute; inset:0; border-radius:999px;
   background:var(--vermilion); transform-origin:left;
   transform:scaleX(1);
 }
-.gallery-dot.active.filling::after{ animation:dotFill var(--fill-ms, 6000ms) linear forwards; }
+.gallery-dot.active.filling::after{
+  /* --fill-ms is set from JS to match gallery.autoplayMs */
+  animation:dotFill var(--fill-ms, 6000ms) linear forwards;
+}
 @keyframes dotFill{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
 @media (prefers-reduced-motion: reduce){ .gallery-dot.active.filling::after{ animation:none; } }
 .gallery-counter{ font-size:.85rem; color:var(--ink-soft); font-weight:600; letter-spacing:.06em; white-space:nowrap; }
@@ -445,19 +498,6 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   content:"♪"; position:absolute; left:0; top:1rem; color:var(--vermilion); font-size:1.05rem;
 }
 .recital-points strong{ color:var(--ink); }
-
-/* ---------- FAQ ---------- */
-.faq-list { max-width: 52em; margin-top: 2rem; border-top: 1px solid var(--line); }
-.faq-item { border-bottom: 1px solid var(--line); }
-.faq-item summary {
-  font-size: 1.12rem; font-weight: 600; padding: 1.6rem 0; cursor: pointer;
-  list-style: none; display: flex; justify-content: space-between; align-items: center;
-}
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: "+"; font-size: 1.5rem; color: var(--vermilion); transition: transform 0.3s ease; }
-.faq-item[open] summary::after { transform: rotate(45deg); }
-.faq-content { padding-bottom: 1.6rem; color: var(--ink-soft); font-size: 1rem; animation: fade-in 0.3s ease; }
-@keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ---------- contact ---------- */
 .contact{ background:var(--ink); color:var(--ivory); }
@@ -487,41 +527,6 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
 .btn-alt:hover{ border-color:var(--vermilion); color:var(--vermilion); }
 .fine{ font-size:.85rem; color:#8C8272; margin-top:2.25rem; }
 
-/* ---------- Floating Controls (CTA & Back to Top) ---------- */
-.floating-controls {
-  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 90;
-  display: flex; flex-direction: column; gap: 0.8rem; align-items: flex-end;
-  pointer-events: none; 
-}
-.floating-controls > * { pointer-events: auto; }
-
-.float-cta {
-  background: var(--vermilion); color: #fff; padding: 0.8rem 1.4rem;
-  border-radius: 99px; font-weight: 600; text-decoration: none; font-size: 0.95rem;
-  box-shadow: 0 4px 14px rgba(192, 57, 43, 0.3);
-  transition: transform 0.3s ease, background 0.2s, opacity 0.3s;
-  opacity: 0; transform: translateY(20px);
-}
-.float-cta:hover { background: var(--vermilion-deep); transform: translateY(-2px); color: #fff; }
-.float-cta.visible { opacity: 1; transform: translateY(0); }
-
-.btt-btn {
-  background: var(--ink); color: var(--ivory); width: 3rem; height: 3rem;
-  border-radius: 50%; border: none; cursor: pointer; font-size: 1.2rem;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, background 0.2s, opacity 0.3s;
-  opacity: 0; transform: translateY(20px);
-}
-.btt-btn:hover { background: var(--ink-soft); transform: translateY(-2px); color: var(--ivory); }
-.btt-btn.visible { opacity: 1; transform: translateY(0); }
-
-@media (max-width: 600px) {
-  .floating-controls { bottom: 1rem; right: 1rem; }
-  .float-cta { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
-  .btt-btn { width: 2.5rem; height: 2.5rem; font-size: 1rem; }
-}
-
 /* ---------- footer ---------- */
 footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 .footer-inner{
@@ -531,11 +536,18 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 .footer-brand{ display:inline-flex; align-items:center; gap:.7rem; color:#BDB4A6; }
 .footer-brand img{ height:2.3rem; width:auto; }
 .footer-brand .bn{ color:var(--vermilion); font-weight:600; font-size:1.05rem; }
+
+/* OPTIONAL TESTIMONIALS STYLING - commented out for now */
+/*
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.testimonial-card { background: var(--ivory); padding: 2rem; border-radius: var(--radius); border-left: 3px solid var(--vermilion); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+.testimonial-card p { font-style: italic; color: var(--ink); margin-bottom: 1rem; font-size: 1.1rem; }
+.testimonial-card .author { font-weight: 700; color: var(--ink-soft); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+*/
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
 <a class="skip-link" href="#top">Skip to main content</a>
 
 <header class="site-header">
@@ -552,7 +564,6 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#lessons">Schedule &amp; Tuition</a></li>
       <li><a href="#recitals">Recitals</a></li>
-      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a class="nav-cta" data-config-register href="#">Register - first class free</a></li>
     </ul>
@@ -594,7 +605,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <section id="classes">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">01</span> Classes · open for all age groups</span>
+        <span class="eyebrow">Classes · open for all age groups</span>
         <h2>One program, two musical worlds</h2>
         <p class="lede">Every lesson is one-on-one and shaped around the student - their learning style, previous experience, and musical goals.</p>
       </div>
@@ -632,7 +643,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <section id="team" class="section-alt">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">02</span> Team members</span>
+        <span class="eyebrow">Team members</span>
         <h2>A family that teaches together</h2>
       </div>
       <div class="team-grid">
@@ -665,7 +676,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <section id="gallery">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">03</span> Gallery</span>
+        <span class="eyebrow">Gallery</span>
         <h2>Moments from our stage</h2>
         <p class="lede">Recitals, performances, and celebrations - a glimpse of the Shopno community in action.</p>
       </div>
@@ -684,11 +695,23 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     </div>
   </section>
 
+  <!-- ============ OPTIONAL: TESTIMONIALS (uncomment when quotes are collected) ============
+  <section id="testimonials" class="section-alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Testimonials</span>
+        <h2>What our families say</h2>
+      </div>
+      <div class="testimonial-grid reveal" id="testimonialGrid"></div>
+    </div>
+  </section>
+  ======================================================================================= -->
+
   <!-- ================ SCHEDULE & TUITION ================ -->
   <section id="lessons" class="section-alt">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">04</span> Schedule &amp; tuition</span>
+        <span class="eyebrow">Schedule &amp; tuition</span>
         <h2>Lessons that fit your week</h2>
       </div>
       <div class="how-grid reveal">
@@ -710,7 +733,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <section id="recitals">
     <div class="wrap recital-inner">
       <div class="section-head reveal" style="margin-bottom:0;">
-        <span class="eyebrow"><span class="num">05</span> Recitals &amp; performances</span>
+        <span class="eyebrow">Recitals &amp; performances</span>
         <h2>Every student gets a stage</h2>
         <p class="lede" style="margin-top:1rem;">Performance is part of the program, not an afterthought. Students build confidence by sharing their music with family and community throughout the year.</p>
       </div>
@@ -722,39 +745,11 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     </div>
   </section>
 
-  <!-- ======================= FAQ ======================= -->
-  <section id="faq" class="section-alt">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow"><span class="num">06</span> Frequently asked questions</span>
-        <h2>Have questions?</h2>
-      </div>
-      <div class="faq-list reveal">
-        <details class="faq-item">
-          <summary>Do I need to bring my own instrument?</summary>
-          <div class="faq-content"><p>For piano and harmonium, you can use our instruments during the lesson. For guitar, we highly recommend bringing your own so you can practice effectively at home.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Do you offer online classes?</summary>
-          <div class="faq-content"><p>Yes, we offer online classes for students who cannot easily attend in person, though we highly recommend in-person lessons for beginners.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>What is the minimum age to start?</summary>
-          <div class="faq-content"><p>We typically welcome students starting at age 5, but we evaluate each child's readiness on an individual basis during the free trial class.</p></div>
-        </details>
-        <details class="faq-item">
-          <summary>Are there any hidden fees?</summary>
-          <div class="faq-content"><p>No, there are no registration or cancellation fees. You only pay for the lessons you take, starting from your second class.</p></div>
-        </details>
-      </div>
-    </div>
-  </section>
-
   <!-- ======================= CONTACT ======================= -->
   <section id="contact" class="contact">
     <div class="wrap contact-grid">
       <div class="reveal">
-        <span class="eyebrow"><span class="num">07</span> Contact us</span>
+        <span class="eyebrow">Contact us</span>
         <h2>Ready to begin?</h2>
         <p class="lede" style="margin-top:1rem;">Send us a message or an email - or register directly. There's no registration fee, and your first class is on us.</p>
         <ul class="contact-methods">
@@ -788,12 +783,6 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 
 </main>
 
-<!-- FLOATING CONTROLS -->
-<div class="floating-controls" id="floatingControls">
-  <a class="float-cta" data-config-register href="#" target="_blank" rel="noopener" aria-label="Register Free">Register Free</a>
-  <button class="btt-btn" id="bttBtn" aria-label="Back to top">↑</button>
-</div>
-
 <footer>
   <div class="wrap footer-inner">
     <span class="footer-brand">
@@ -811,6 +800,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 
   /* ---------- apply config: logo + links ---------- */
   document.querySelectorAll("[data-config-logo]").forEach(el => { el.src = cfg.logo; });
+  // Specific injection for the footer logo
   document.querySelectorAll("[data-config-logo-footer]").forEach(el => { el.src = cfg.footerLogo || cfg.logo; });
   
   document.querySelectorAll("[data-config-register]").forEach(el => { el.href = cfg.links.registrationForm; });
@@ -819,33 +809,6 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   document.querySelectorAll("[data-config-email]").forEach(el => {
     el.href = "mailto:" + cfg.links.email;
     if (!el.textContent.trim()) el.textContent = cfg.links.email;
-  });
-
-  /* ---------- scroll progress bar ---------- */
-  const progressBar = document.getElementById("progressBar");
-  window.addEventListener("scroll", () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (height > 0) {
-      const scrolled = (winScroll / height) * 100;
-      progressBar.style.width = scrolled + "%";
-    }
-  });
-
-  /* ---------- floating controls ---------- */
-  const floatCta = document.querySelector(".float-cta");
-  const bttBtn = document.getElementById("bttBtn");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) {
-      floatCta.classList.add("visible");
-      bttBtn.classList.add("visible");
-    } else {
-      floatCta.classList.remove("visible");
-      bttBtn.classList.remove("visible");
-    }
-  });
-  bttBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   /* ---------- sargam strip ---------- */
@@ -878,6 +841,26 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   /* ---------- footer year ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  /* OPTIONAL TESTIMONIALS RENDERER - uncomment together with the HTML section,
+     the CSS block, and the testimonials data in SITE_CONFIG
+  const tGrid = document.getElementById("testimonialGrid");
+  if (tGrid && cfg.testimonials && cfg.testimonials.length){
+    cfg.testimonials.forEach(t => {
+      const card = document.createElement("figure");
+      card.className = "testimonial-card";
+      const q = document.createElement("blockquote");
+      const p = document.createElement("p");
+      p.textContent = "“" + t.quote + "”";
+      q.appendChild(p);
+      const cap = document.createElement("figcaption");
+      cap.className = "author";
+      cap.textContent = t.author || "";
+      card.appendChild(q); card.appendChild(cap);
+      tGrid.appendChild(card);
+    });
+  }
+  */
+
   /* ============================================================
      GALLERY SLIDESHOW
      ============================================================ */
@@ -898,7 +881,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     const autoRatio = (g.aspectRatio === "auto");
     if (autoRatio){
       frame.classList.add("ratio-auto");
-      frame.style.aspectRatio = "16 / 9"; 
+      frame.style.aspectRatio = "16 / 9"; // provisional until the first photo loads
     } else {
       frame.style.aspectRatio = g.aspectRatio || "4 / 3";
     }
@@ -915,16 +898,27 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       slide.setAttribute("aria-roledescription", "slide");
       slide.setAttribute("aria-label", (i + 1) + " of " + images.length);
 
+      // Blurred background layer to prevent cropping issues on any aspect ratio
       const bg = document.createElement("img");
       bg.className = "bg"; bg.src = img.src; bg.alt = ""; bg.loading = i === 0 ? "eager" : "lazy";
       bg.decoding = "async";
       bg.setAttribute("aria-hidden", "true");
       slide.appendChild(bg);
 
+      // Main image container
       const fg = document.createElement("img");
       fg.className = "fg"; fg.src = img.src; fg.alt = img.alt || ""; fg.loading = i === 0 ? "eager" : "lazy";
       fg.decoding = "async";
       slide.appendChild(fg);
+
+      /* OPTIONAL CAPTIONS - uncomment when caption data is added in SITE_CONFIG
+      if (img.caption) {
+        const cap = document.createElement("div");
+        cap.className = "gallery-caption";
+        cap.textContent = img.caption;
+        slide.appendChild(cap);
+      }
+      */
 
       track.appendChild(slide);
 
@@ -959,6 +953,11 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
         else if (k === prevIdx && images.length > 1) newRole = "prev";
         else if (k === nextIdx && images.length > 1) newRole = "next";
 
+        /* Keep the motion speed consistent for every slide, including wrap-around:
+           - prev<->next swap: jump instantly (would otherwise fly across the stage)
+           - entering/leaving the hidden state: fade in place, don't animate transform
+             (this was the cause of the "last slide feels fast" glitch)
+           - all other role changes: full smooth transition from the stylesheet   */
         if ((oldRole === "prev" && newRole === "next") || (oldRole === "next" && newRole === "prev")) {
           slide.style.transition = "none";
         } else if (oldRole === "hidden" || newRole === "hidden") {
@@ -967,10 +966,11 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
           slide.style.transition = "";
         }
 
-        void slide.offsetWidth; 
+        void slide.offsetWidth; // Force a browser reflow so the transition override applies
 
         slide.className = "gallery-slide" + (newRole === "hidden" ? "" : " " + newRole);
 
+        // Update dots (progress fill restarts only on the newly active dot)
         const isActive = (k === current);
         dots[k].classList.toggle("active", isActive);
         dots[k].classList.remove("filling");
@@ -981,6 +981,10 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       applyAspect();
     }
 
+    /* AUTO ASPECT RATIO: size the frame from the active photo's real proportions.
+       The active slide occupies 65% x 90% of the frame on desktop (94% x 98% on
+       mobile - keep these in sync with the .gallery-slide CSS), so the frame
+       ratio is compensated to let the photo fill its slide edge-to-edge.        */
     function applyAspect(){
       if (!autoRatio) return;
       const fg = slides[current].querySelector(".fg");
@@ -996,9 +1000,10 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       if (fg.complete) apply();
       else fg.addEventListener("load", apply, { once: true });
     }
-    
+    // re-measure when crossing the mobile breakpoint (e.g. phone rotation)
     mobileMq.addEventListener("change", applyAspect);
 
+    // Initialize first state
     goTo(0);
 
     btnPrev.addEventListener("click", () => { goTo(current - 1); restartAutoplay(); });
@@ -1024,17 +1029,18 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       startX = null;
     }, { passive: true });
 
+    /* progress fill on the active dot, synced to the autoplay delay */
     function fillDot(){
       const d = dots[current];
       if (!d) return;
       d.classList.remove("filling");
-      void d.offsetWidth; 
+      void d.offsetWidth; // restart the CSS animation from zero
       d.style.setProperty("--fill-ms", g.autoplayMs + "ms");
       d.classList.add("filling");
     }
     function startAutoplay(){
       if (!g.autoplayMs || g.autoplayMs <= 0 || reduceMotion || images.length < 2) return;
-      if (timer) return; 
+      if (timer) return; // never stack intervals
       fillDot();
       timer = setInterval(() => { goTo(current + 1); fillDot(); }, g.autoplayMs);
     }
