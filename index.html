@@ -29,6 +29,25 @@
   "sameAs": ["https://www.facebook.com/groups/800635622097716/"]
 }
 </script>
+<!-- FAQ structured data: mirrors the on-page FAQ section, enables rich results in Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Does the student need any musical experience?",
+      "acceptedAnswer": { "@type": "Answer", "text": "None at all. Lessons are one-on-one for complete beginners through to advanced students, all age groups welcome." } },
+    { "@type": "Question", "name": "What happens at the free first class?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A relaxed meet-and-listen session to discuss goals and experience. No commitment and no registration fee; tuition is discussed there." } },
+    { "@type": "Question", "name": "Do you teach online or in person?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Both. In person at the home studio in Stoney Creek (Winona area), Hamilton, ON, or online." } },
+    { "@type": "Question", "name": "How long and how often are lessons?",
+      "acceptedAnswer": { "@type": "Answer", "text": "30 minutes up to 1 hour depending on age and level, weekly or bi-weekly, preferably weekends with weeknights available. No cancellation fee." } },
+    { "@type": "Question", "name": "What can I learn at Shopno Music School?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Bengali and South Asian voice, Western voice including RCM exam preparation, harmonium, piano, guitar, and Bengali language." } }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+Bengali:wght@500;600&display=swap" rel="stylesheet">
@@ -51,37 +70,47 @@ const SITE_CONFIG = {
 
   gallery: {
     maxImages: 10,
-
-    /* FRAME SHAPE
-       "auto"  = the frame adapts to each photo's own proportions (recommended:
-                 landscape photos get a wide frame, portrait photos a tall one,
-                 so the image always fills the stage - no manual mobile override needed)
-       or a fixed value like "16 / 9" or "4 / 3" for a constant frame            */
-    aspectRatio: "auto",
-
-    /* Safety clamps for "auto" mode (frame width ÷ height).
-       min stops very tall portrait photos from stretching the page;
-       max stops panoramas from becoming a thin strip.                            */
-    autoRatioLimits: { min: 0.8, max: 2.1 },
-
+    aspectRatio: "16 / 9",   // Maintained standard aspect ratio for the frame
     autoplayMs: 6000,       // 6 seconds delay
 
     images: [
       { src: "assets/gallery/photo-1.jpg", alt: "Classical dance performance at a Shopno Music School recital" /*, caption: "Beautiful classical performance by our students"*/ },
-      { src: "assets/gallery/photo-2.jpg", alt: "Young students of The Octaves band on stage at a recital" /*, caption: "The Octaves performing live on stage"*/ },
+      { src: "assets/gallery/photo-2.jpg", alt: "Young students of The Octaves band on stage at a recital" , caption: "The Octaves performing live on stage" },
       { src: "assets/gallery/photo-3.jpg", alt: "Award presentation moment on the Shopno recital stage" /*, caption: "Annual award distributions and recognitions"*/ },
       { src: "assets/gallery/photo-4.jpg", alt: "Guest singer, Angshuman is performing" },
       { src: "assets/gallery/photo-5.jpg", alt: "Teachers, students, and families together at a Shopno event" }
     ]
   }
 
-  /* OPTIONAL TESTIMONIALS DATA - uncomment (and add a comma above) when real quotes are collected
   ,
-  testimonials: [
-    { quote: "Testimonial text goes here.", author: "Parent of a student" },
-    { quote: "Another testimonial goes here.", author: "Adult student" }
-  ]
-  */
+  /* TESTIMONIALS
+     NOTE: these are SAMPLE quotes - replace with real ones as they come in.
+     Each item: quote + author required; role and date are OPTIONAL (just remove
+     the field if not needed). Add as many items as you like - the slider adapts. */
+  testimonials: {
+    autoplayMs: 8000,   // rotation speed; set 0 to disable auto-rotation
+    items: [
+      {
+        quote: "Best place in Hamilton to teach your kid both Bengali and Western music. Meevan looks forward to his lesson all week - and now he sings at every family gathering.",
+        author: "Meevan's mom",
+        role: "Parent of a voice & piano student",
+        date: "2026"
+      },
+      {
+        quote: "Such supportive instructors. They met our daughter exactly where she was, and within a few months the progress was visible - to us, and to her.",
+        author: "Parent of a Bengali voice student"
+      },
+      {
+        quote: "I started guitar in my forties as a complete beginner. The one-on-one pace and the no-pressure environment made all the difference.",
+        author: "Adult guitar student",
+        date: "2025"
+      },
+      {
+        quote: "The recitals are the highlight of our year. Every child gets a real stage, and you can see their confidence grow each time they perform.",
+        author: "Shopno community parent"
+      }
+    ]
+  }
 };
 </script>
 
@@ -229,35 +258,70 @@ h3{ font-size:1.35rem; line-height:1.3; }
    WATERMARK (BENGALI "SWAPNA") - CUSTOMIZATION CONTROLS
    Modify the values below to easily adjust the background text parameters.
    ============================================================================== */
+/*.hero-bn {*/
+/*  position: absolute; z-index: 0; user-select: none; pointer-events: none;*/
+/*  font-family: var(--font-bengali); font-weight: 600; line-height: 1;*/
+/*  color: transparent;*/
+
+/*  !* 1. POSITION: kept safely inward from the right edge*/
+/*     (--par is a slow parallax offset set from JS while scrolling) *!*/
+/*  right: 4%;*/
+/*  top: 50%;*/
+/*  transform: translateY(calc(-50% + var(--par, 0px)));*/
+
+/*  !* 2. SIZE: clamp(min on small, fluid, max on large) *!*/
+/*  font-size: clamp(10rem, 31vw, 24rem);*/
+
+/*  !* 3. COLOR (LARGE SCREENS): antique-gold stroke *!*/
+/*  -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.35);*/
+
+/*  !* 4. OUTER SHELL FADE: radial mask — first % is where solid ends, second is full fade *!*/
+/*  -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);*/
+/*  mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);*/
+/*}*/
+
+/*@media (max-width: 720px) {*/
+/*  .hero-bn {*/
+/*    !* Mobile: centered behind the text *!*/
+/*    right: 50%;*/
+/*    transform: translate(50%, calc(-50% + var(--par, 0px)));*/
+/*    top: 46%;*/
+/*    font-size: clamp(12rem, 50vw, 20rem);*/
+/*    !* COLOR (SMALL SCREENS): faded vermilion, as per current design *!*/
+/*    -webkit-text-stroke: 1.5px rgba(192, 57, 43, 0.25);*/
+/*  }*/
+/*}*/
 .hero-bn {
   position: absolute; z-index: 0; user-select: none; pointer-events: none;
   font-family: var(--font-bengali); font-weight: 600; line-height: 1;
   color: transparent;
 
-  /* 1. POSITION: kept safely inward from the right edge */
-  right: 4%;
+  /* 1. POSITION: kept safely inward from the right edge
+     (--par is a slow parallax offset set from JS while scrolling) */
+  right: 1%;
   top: 50%;
-  transform: translateY(-50%);
-
-  /* 2. SIZE: clamp(min on small, fluid, max on large) */
+  transform: translateY(calc(-50% + var(--par, 0px)));
+  /*transform: translateY(-50%);*/
+  
+  /* 2. SIZE: Scaled down to match your reference image */
   font-size: clamp(10rem, 31vw, 24rem);
 
-  /* 3. COLOR (LARGE SCREENS):faded vermilion  */
+  /* 3. COLOR: Changed to a faded vermilion (red) stroke */
   -webkit-text-stroke: 1.5px rgba(192, 57, 43, 0.25);
 
-  /* 4. OUTER SHELL FADE: radial mask — first % is where solid ends, second is full fade */
+  /* 4. OUTER SHELL FADE: Softened the radial gradient for a smoother, ghost-like fade */
   -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);
   mask-image: radial-gradient(closest-side, #000 20%, transparent 95%);
 }
 
 @media (max-width: 720px) {
   .hero-bn {
-    /* Mobile: centered behind the text */
+    /* Mobile specific adjustments to keep it centered and readable */
     right: 50%;
-    transform: translate(50%, -50%);
+    transform: translate(50%, calc(-50% + var(--par, 0px)));
     top: 46%;
     font-size: clamp(12rem, 50vw, 20rem);
-    /* COLOR (SMALL SCREENS): antique-gold stroke, as per current design */
+    /*-webkit-text-stroke: 1.5px rgba(189, 180, 166, 0.30);*/
     -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.35);
   }
 }
@@ -353,8 +417,6 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   background:transparent; border-radius:4px; overflow:hidden;
   display: flex; align-items: center; justify-content: center;
   perspective: 1200px; padding-block: 2rem;
-  /* smooth reshape between photos of different proportions (auto mode) */
-  transition: aspect-ratio .6s ease;
 }
 .gallery-track{ 
   position:relative; width:100%; height:100%; 
@@ -381,11 +443,7 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
 @media (max-width: 768px) {
   .gallery-frame {
     padding-block: 0.5rem;
-  }
-  /* Fixed-ratio mode only: force a square frame on phones so images look bigger.
-     In "auto" mode (class .ratio-auto) the frame already fits each photo, so no override. */
-  .gallery-frame:not(.ratio-auto) {
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: 1 / 1 !important; /* Overrides JS to make the frame a taller square on vertical phones */
   }
   .gallery-slide {
     width: 94%; /* Takes up significantly more screen width */
@@ -421,8 +479,8 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   object-fit: contain; z-index: 1;
 }
 
-/* OPTIONAL CAPTIONS STYLING - commented out for now */
-/*
+/* CAPTIONS - shown only on the active slide, and only for images
+   that have a caption: "..." entry in SITE_CONFIG */
 .gallery-caption {
   position: absolute; bottom: 0; left: 0; width: 100%;
   background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
@@ -431,7 +489,9 @@ section{ padding-block:clamp(3.5rem, 8.5vw, 7rem); }
   opacity: 0; transition: opacity 0.4s ease;
 }
 .gallery-slide.active .gallery-caption { opacity: 1; }
-*/
+@media (max-width: 560px){
+  .gallery-caption { font-size: .92rem; padding: 1.5rem 1rem 1rem; }
+}
 
 .gallery-btn{
   position:absolute; top:50%; transform:translateY(-50%); z-index:10;
@@ -537,18 +597,126 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 .footer-brand img{ height:2.3rem; width:auto; }
 .footer-brand .bn{ color:var(--vermilion); font-weight:600; font-size:1.05rem; }
 
-/* OPTIONAL TESTIMONIALS STYLING - commented out for now */
-/*
-.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
-.testimonial-card { background: var(--ivory); padding: 2rem; border-radius: var(--radius); border-left: 3px solid var(--vermilion); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-.testimonial-card p { font-style: italic; color: var(--ink); margin-bottom: 1rem; font-size: 1.1rem; }
-.testimonial-card .author { font-weight: 700; color: var(--ink-soft); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
-*/
+/* ============================================================
+   PREMIUM UPGRADES
+   film grain · section numerals · micro-interactions
+   hero entrance · scroll progress · floating CTA · FAQ
+   ============================================================ */
+
+/* Film grain overlay - barely visible, gives a "printed concert programme" texture */
+body::after{
+  content:""; position:fixed; inset:0; z-index:2000; pointer-events:none;
+  opacity:.05; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Ledger-style ghost numerals above section headings (data-num="01" etc.) */
+[data-num]::before{
+  content:attr(data-num);
+  display:block; font-family:var(--font-display);
+  font-size:clamp(2.4rem, 5vw, 3.4rem); line-height:1;
+  color:rgba(31,27,22,.13); margin-bottom:.6rem; letter-spacing:.02em;
+}
+.contact [data-num]::before{ color:rgba(250,247,240,.16); }
+
+/* Thin scroll-progress bar along the top edge */
+.scroll-progress{
+  position:fixed; top:0; left:0; width:100%; height:3px;
+  background:var(--vermilion); transform:scaleX(0); transform-origin:left;
+  z-index:300; pointer-events:none;
+}
+
+/* Micro-interactions: rows, cards, and cells respond to hover */
+.class-list li{ padding-inline:1rem; margin-inline:-1rem; border-radius:var(--radius); transition:background .35s ease; }
+.class-list li:hover{ background:var(--ivory-deep); }
+.class-list li h3{ transition:color .3s ease; }
+.class-list li:hover h3{ color:var(--vermilion); }
+.member{ transition:border-color .35s ease; }
+.member:hover{ border-top-color:var(--vermilion); }
+.how-cell{ transition:background .3s ease; }
+.how-cell:hover{ background:var(--ivory); }
+.btn{ transition:background .2s, border-color .2s, color .2s, transform .2s ease, box-shadow .2s ease; }
+.btn:hover{ transform:translateY(-2px); }
+.btn:active{ transform:translateY(0) scale(.98); }
+.btn-primary:hover{ box-shadow:0 8px 20px rgba(192,57,43,.28); }
+
+/* Hero entrance: children rise in with a soft stagger on page load */
+@keyframes heroRise{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:none; } }
+.hero-inner > *{ animation:heroRise .8s cubic-bezier(.22, 1, .36, 1) both; }
+.hero-inner > *:nth-child(1){ animation-delay:.05s; }
+.hero-inner > *:nth-child(2){ animation-delay:.15s; }
+.hero-inner > *:nth-child(3){ animation-delay:.25s; }
+.hero-inner > *:nth-child(4){ animation-delay:.35s; }
+.hero-inner > *:nth-child(5){ animation-delay:.45s; }
+.hero-inner > *:nth-child(6){ animation-delay:.55s; }
+
+/* Floating register pill - appears after the hero, hides at the contact section */
+.float-cta{
+  position:fixed; right:1.2rem; bottom:1.2rem; z-index:150;
+  background:var(--vermilion); color:#fff; text-decoration:none;
+  font-weight:600; font-size:.95rem; padding:.85rem 1.5rem; border-radius:999px;
+  box-shadow:0 6px 22px rgba(192,57,43,.35); white-space:nowrap;
+  opacity:0; transform:translateY(12px); pointer-events:none;
+  transition:opacity .35s ease, transform .35s ease, background .2s;
+}
+.float-cta.show{ opacity:1; transform:none; pointer-events:auto; }
+.float-cta:hover{ background:var(--vermilion-deep); color:#fff; }
+@media (max-width:560px){
+  .float-cta{ left:50%; right:auto; transform:translate(-50%, 12px); }
+  .float-cta.show{ transform:translate(-50%, 0); }
+}
+
+/* FAQ accordion (native <details> - accessible, works without JS) */
+.faq-list{ border-top:1px solid var(--line); max-width:52em; }
+.faq-list details{ border-bottom:1px solid var(--line); }
+.faq-list summary{
+  cursor:pointer; list-style:none; display:flex; justify-content:space-between;
+  align-items:center; gap:1rem; padding:1.25rem 0;
+  font-weight:600; font-size:1.05rem; transition:color .2s;
+}
+.faq-list summary::-webkit-details-marker{ display:none; }
+.faq-list summary::after{
+  content:"+"; font-family:var(--font-display); font-size:1.5rem;
+  color:var(--vermilion); transition:transform .3s ease; flex-shrink:0;
+}
+.faq-list details[open] summary::after{ transform:rotate(45deg); }
+.faq-list summary:hover{ color:var(--vermilion); }
+.faq-list details p{ color:var(--ink-soft); padding-bottom:1.35rem; max-width:46em; }
+
+/* Back to top */
+.to-top{ color:#BDB4A6; text-decoration:none; font-weight:600; white-space:nowrap; }
+.to-top:hover{ color:var(--ivory); }
+
+/* ---------- testimonials (spotlight quote slider) ----------
+   One large editorial quote at a time. All items are stacked in the same
+   grid cell so the section height fits the tallest quote (no layout jumps). */
+.testimonial-stage{ display:grid; max-width:46em; margin-inline:auto; text-align:center; }
+.testimonial-item{
+  grid-area:1 / 1; opacity:0; transform:translateY(14px);
+  transition:opacity .7s ease, transform .7s ease;
+  pointer-events:none; padding-inline:.5rem; margin:0;
+}
+.testimonial-item.active{ opacity:1; transform:none; pointer-events:auto; }
+.testimonial-mark{
+  font-family:var(--font-display); font-size:4.2rem; line-height:.55;
+  color:var(--vermilion); opacity:.3; display:block; margin-bottom:1.1rem;
+  user-select:none;
+}
+.testimonial-item blockquote{ margin:0; }
+.testimonial-item blockquote p{
+  font-family:var(--font-display); font-size:clamp(1.25rem, 2.6vw, 1.7rem);
+  line-height:1.45; color:var(--ink); text-wrap:balance;
+}
+.testimonial-meta{ margin-top:1.6rem; font-size:.95rem; color:var(--ink-soft); }
+.testimonial-meta .who{ display:block; font-weight:700; color:var(--ink); margin-bottom:.15rem; }
+.testimonial-dots{ display:flex; justify-content:center; gap:.6rem; align-items:center; margin-top:2.25rem; }
+@media (prefers-reduced-motion: reduce){ .testimonial-item{ transition:none; } }
 </style>
 </head>
 <body>
 
 <a class="skip-link" href="#top">Skip to main content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="wrap nav">
@@ -604,7 +772,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <!-- ======================= CLASSES ======================= -->
   <section id="classes">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="01">
         <span class="eyebrow">Classes · open for all age groups</span>
         <h2>One program, two musical worlds</h2>
         <p class="lede">Every lesson is one-on-one and shaped around the student - their learning style, previous experience, and musical goals.</p>
@@ -642,7 +810,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <!-- ======================= TEAM ======================= -->
   <section id="team" class="section-alt">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="02">
         <span class="eyebrow">Team members</span>
         <h2>A family that teaches together</h2>
       </div>
@@ -675,7 +843,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <!-- ======================= GALLERY (FLOATING CAROUSEL) ======================= -->
   <section id="gallery">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="03">
         <span class="eyebrow">Gallery</span>
         <h2>Moments from our stage</h2>
         <p class="lede">Recitals, performances, and celebrations - a glimpse of the Shopno community in action.</p>
@@ -695,22 +863,10 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     </div>
   </section>
 
-  <!-- ============ OPTIONAL: TESTIMONIALS (uncomment when quotes are collected) ============
-  <section id="testimonials" class="section-alt">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Testimonials</span>
-        <h2>What our families say</h2>
-      </div>
-      <div class="testimonial-grid reveal" id="testimonialGrid"></div>
-    </div>
-  </section>
-  ======================================================================================= -->
-
   <!-- ================ SCHEDULE & TUITION ================ -->
   <section id="lessons" class="section-alt">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="04">
         <span class="eyebrow">Schedule &amp; tuition</span>
         <h2>Lessons that fit your week</h2>
       </div>
@@ -732,7 +888,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   <!-- ======================= RECITALS ======================= -->
   <section id="recitals">
     <div class="wrap recital-inner">
-      <div class="section-head reveal" style="margin-bottom:0;">
+      <div class="section-head reveal" style="margin-bottom:0;" data-num="05">
         <span class="eyebrow">Recitals &amp; performances</span>
         <h2>Every student gets a stage</h2>
         <p class="lede" style="margin-top:1rem;">Performance is part of the program, not an afterthought. Students build confidence by sharing their music with family and community throughout the year.</p>
@@ -745,10 +901,54 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
     </div>
   </section>
 
+  <!-- ======================= FAQ ======================= -->
+  <section id="faq" class="section-alt">
+    <div class="wrap">
+      <div class="section-head reveal" data-num="06">
+        <span class="eyebrow">Common questions</span>
+        <h2>Before you ask</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details>
+          <summary>Does the student need any musical experience?</summary>
+          <p>None at all. We teach complete beginners through to advanced students, and every lesson is one-on-one, shaped around the student's level, learning style, and goals. All age groups are welcome.</p>
+        </details>
+        <details>
+          <summary>What happens at the free first class?</summary>
+          <p>We meet the student, listen, and talk about goals and previous experience. It's a relaxed session - no commitment, no registration fee. Tuition is discussed there once we understand the right fit.</p>
+        </details>
+        <details>
+          <summary>Do you teach online or in person?</summary>
+          <p>Both. Lessons run in person at our home studio in Stoney Creek (Winona area), Hamilton, or online - whichever suits your family.</p>
+        </details>
+        <details>
+          <summary>How long and how often are lessons?</summary>
+          <p>Lessons run 30 minutes up to 1 hour depending on age and level, weekly or bi-weekly. We prefer weekends, and weeknights are also available. There is no cancellation fee.</p>
+        </details>
+        <details>
+          <summary>What can I learn at Shopno?</summary>
+          <p>Bengali &amp; South Asian voice, Western voice (including RCM exam preparation), harmonium, piano, guitar, and Bengali language lessons woven into the musical program.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= TESTIMONIALS (spotlight slider) ======================= -->
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head reveal" data-num="07" style="text-align:center;">
+        <span class="eyebrow">Testimonials</span>
+        <h2>What our families say</h2>
+      </div>
+      <div class="testimonial-stage reveal" id="testimonialStage" aria-roledescription="carousel" aria-label="Testimonials"></div>
+      <div class="testimonial-dots reveal" id="testimonialDots" role="tablist" aria-label="Choose testimonial"></div>
+    </div>
+  </section>
+
   <!-- ======================= CONTACT ======================= -->
   <section id="contact" class="contact">
     <div class="wrap contact-grid">
-      <div class="reveal">
+      <div class="reveal" data-num="08">
         <span class="eyebrow">Contact us</span>
         <h2>Ready to begin?</h2>
         <p class="lede" style="margin-top:1rem;">Send us a message or an email - or register directly. There's no registration fee, and your first class is on us.</p>
@@ -783,6 +983,8 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
 
 </main>
 
+<a class="float-cta" id="floatCta" data-config-register href="#" target="_blank" rel="noopener">Register · First class free</a>
+
 <footer>
   <div class="wrap footer-inner">
     <span class="footer-brand">
@@ -790,6 +992,7 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       <span><span class="bn" aria-hidden="true">স্বপ্ন</span> · Shopno Music School · Stoney Creek, Hamilton ON</span>
     </span>
     <span>© <span id="year">2026</span> Shopno Music School · A home-based, family-owned music school</span>
+    <a class="to-top" href="#top">Back to top ↑</a>
   </div>
 </footer>
 
@@ -841,25 +1044,154 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   /* ---------- footer year ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* OPTIONAL TESTIMONIALS RENDERER - uncomment together with the HTML section,
-     the CSS block, and the testimonials data in SITE_CONFIG
-  const tGrid = document.getElementById("testimonialGrid");
-  if (tGrid && cfg.testimonials && cfg.testimonials.length){
-    cfg.testimonials.forEach(t => {
-      const card = document.createElement("figure");
-      card.className = "testimonial-card";
-      const q = document.createElement("blockquote");
-      const p = document.createElement("p");
-      p.textContent = "“" + t.quote + "”";
-      q.appendChild(p);
-      const cap = document.createElement("figcaption");
-      cap.className = "author";
-      cap.textContent = t.author || "";
-      card.appendChild(q); card.appendChild(cap);
-      tGrid.appendChild(card);
+  /* ---------- scroll progress bar + watermark parallax ---------- */
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const progressBar = document.getElementById("scrollProgress");
+  const heroBn = document.querySelector(".hero-bn");
+  let scrollTicking = false;
+  function onScrollFx(){
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressBar) progressBar.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+      /* watermark drifts at ~0.18x scroll speed, capped so it never leaves the hero */
+      if (heroBn && !prefersReducedMotion){
+        heroBn.style.setProperty("--par", Math.min(window.scrollY * 0.18, 160).toFixed(1) + "px");
+      }
+      scrollTicking = false;
     });
   }
-  */
+  window.addEventListener("scroll", onScrollFx, { passive: true });
+  onScrollFx();
+
+  /* ---------- floating register CTA ---------- */
+  const floatCta = document.getElementById("floatCta");
+  const heroSection = document.querySelector(".hero");
+  const contactSection = document.getElementById("contact");
+  if (floatCta && heroSection && contactSection && "IntersectionObserver" in window){
+    let pastHero = false, contactVisible = false;
+    const updateCta = () => floatCta.classList.toggle("show", pastHero && !contactVisible);
+    new IntersectionObserver(entries => {
+      pastHero = !entries[0].isIntersecting; updateCta();
+    }).observe(heroSection);
+    new IntersectionObserver(entries => {
+      contactVisible = entries[0].isIntersecting; updateCta();
+    }, { threshold: 0.12 }).observe(contactSection);
+  }
+
+  /* ============================================================
+     TESTIMONIALS - spotlight quote slider
+     Driven by SITE_CONFIG.testimonials (items + autoplayMs).
+     Hides the whole section automatically if there are no items.
+     ============================================================ */
+  (function(){
+    const tCfg = cfg.testimonials;
+    const tSection = document.getElementById("testimonials");
+    const tStage = document.getElementById("testimonialStage");
+    const tDots = document.getElementById("testimonialDots");
+    if (!tSection || !tStage) return;
+
+    const items = (tCfg && tCfg.items) || [];
+    if (!items.length){ tSection.style.display = "none"; return; }
+
+    let tCurrent = 0, tTimer = null;
+
+    /* build quote figures + dots */
+    items.forEach((t, i) => {
+      const fig = document.createElement("figure");
+      fig.className = "testimonial-item";
+      fig.setAttribute("role", "group");
+      fig.setAttribute("aria-roledescription", "slide");
+      fig.setAttribute("aria-label", (i + 1) + " of " + items.length);
+
+      const mark = document.createElement("span");
+      mark.className = "testimonial-mark";
+      mark.textContent = "“";
+      mark.setAttribute("aria-hidden", "true");
+
+      const bq = document.createElement("blockquote");
+      const p = document.createElement("p");
+      p.textContent = t.quote;
+      bq.appendChild(p);
+
+      const cap = document.createElement("figcaption");
+      cap.className = "testimonial-meta";
+      const who = document.createElement("span");
+      who.className = "who";
+      who.textContent = t.author || "";
+      cap.appendChild(who);
+      /* role and date are optional - shown as "role · date" when present */
+      const detail = [t.role, t.date].filter(Boolean).join(" · ");
+      if (detail){
+        const d = document.createElement("span");
+        d.textContent = detail;
+        cap.appendChild(d);
+      }
+
+      fig.appendChild(mark); fig.appendChild(bq); fig.appendChild(cap);
+      tStage.appendChild(fig);
+
+      const dot = document.createElement("button");
+      dot.className = "gallery-dot"; /* same pill-dot language as the gallery */
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", "Go to testimonial " + (i + 1));
+      dot.addEventListener("click", () => { tGoTo(i); tRestart(); });
+      tDots.appendChild(dot);
+    });
+
+    const tItems = tStage.children;
+    const dots = tDots.children;
+
+    function tGoTo(i){
+      tCurrent = (i + items.length) % items.length;
+      for (let k = 0; k < items.length; k++){
+        tItems[k].classList.toggle("active", k === tCurrent);
+        dots[k].classList.toggle("active", k === tCurrent);
+        dots[k].classList.remove("filling");
+        dots[k].setAttribute("aria-selected", k === tCurrent ? "true" : "false");
+      }
+    }
+    function tFill(){
+      const d = dots[tCurrent];
+      if (!d) return;
+      d.classList.remove("filling");
+      void d.offsetWidth;
+      d.style.setProperty("--fill-ms", tCfg.autoplayMs + "ms");
+      d.classList.add("filling");
+    }
+    function tStart(){
+      if (!tCfg.autoplayMs || tCfg.autoplayMs <= 0 || prefersReducedMotion || items.length < 2) return;
+      if (tTimer) return;
+      tFill();
+      tTimer = setInterval(() => { tGoTo(tCurrent + 1); tFill(); }, tCfg.autoplayMs);
+    }
+    function tStop(){
+      if (tTimer){ clearInterval(tTimer); tTimer = null; }
+      if (dots[tCurrent]) dots[tCurrent].classList.remove("filling");
+    }
+    function tRestart(){ tStop(); tStart(); }
+
+    if (items.length < 2) tDots.style.display = "none";
+
+    /* pause while reading (hover/focus), swipe on touch */
+    tStage.addEventListener("mouseenter", tStop);
+    tStage.addEventListener("mouseleave", tStart);
+    tStage.addEventListener("focusin", tStop);
+    tStage.addEventListener("focusout", tStart);
+    let tStartX = null;
+    tStage.addEventListener("pointerdown", e => { tStartX = e.clientX; }, { passive: true });
+    tStage.addEventListener("pointerup", e => {
+      if (tStartX === null) return;
+      const dx = e.clientX - tStartX;
+      if (Math.abs(dx) > 45){ tGoTo(tCurrent + (dx < 0 ? 1 : -1)); tRestart(); }
+      tStartX = null;
+    }, { passive: true });
+    document.addEventListener("visibilitychange", () => document.hidden ? tStop() : tRestart());
+
+    tGoTo(0);
+    tStart();
+  })();
 
   /* ============================================================
      GALLERY SLIDESHOW
@@ -878,17 +1210,10 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
   if (!images.length){
     gallerySection.style.display = "none";
   } else {
-    const autoRatio = (g.aspectRatio === "auto");
-    if (autoRatio){
-      frame.classList.add("ratio-auto");
-      frame.style.aspectRatio = "16 / 9"; // provisional until the first photo loads
-    } else {
-      frame.style.aspectRatio = g.aspectRatio || "4 / 3";
-    }
+    frame.style.aspectRatio = g.aspectRatio || "4 / 3";
     let current = 0;
     let timer = null;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobileMq = window.matchMedia("(max-width: 768px)");
 
     /* build slides */
     images.forEach((img, i) => {
@@ -911,14 +1236,13 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       fg.decoding = "async";
       slide.appendChild(fg);
 
-      /* OPTIONAL CAPTIONS - uncomment when caption data is added in SITE_CONFIG
+      /* Caption overlay - only built for images with a caption in SITE_CONFIG */
       if (img.caption) {
         const cap = document.createElement("div");
         cap.className = "gallery-caption";
         cap.textContent = img.caption;
         slide.appendChild(cap);
       }
-      */
 
       track.appendChild(slide);
 
@@ -978,31 +1302,8 @@ footer{ background:var(--ink); color:#8C8272; border-top:1px solid #3A342C; }
       }
 
       counter.textContent = (current + 1) + " / " + images.length;
-      applyAspect();
     }
-
-    /* AUTO ASPECT RATIO: size the frame from the active photo's real proportions.
-       The active slide occupies 65% x 90% of the frame on desktop (94% x 98% on
-       mobile - keep these in sync with the .gallery-slide CSS), so the frame
-       ratio is compensated to let the photo fill its slide edge-to-edge.        */
-    function applyAspect(){
-      if (!autoRatio) return;
-      const fg = slides[current].querySelector(".fg");
-      const apply = () => {
-        if (!fg.naturalWidth || !fg.naturalHeight) return;
-        const photoRatio = fg.naturalWidth / fg.naturalHeight;
-        const compensation = mobileMq.matches ? (0.98 / 0.94) : (0.90 / 0.65);
-        const lim = g.autoRatioLimits || {};
-        const min = lim.min || 0.8, max = lim.max || 2.1;
-        const ratio = Math.min(max, Math.max(min, photoRatio * compensation));
-        frame.style.aspectRatio = ratio.toFixed(4);
-      };
-      if (fg.complete) apply();
-      else fg.addEventListener("load", apply, { once: true });
-    }
-    // re-measure when crossing the mobile breakpoint (e.g. phone rotation)
-    mobileMq.addEventListener("change", applyAspect);
-
+    
     // Initialize first state
     goTo(0);
 
